@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BibliothequeBDModelStoreContainer" CdmEntityContainer="BibliothequeBDEntities">
+    <EntitySetMapping Name="Adherants">
+      <EntityTypeMapping TypeName="BibliothequeBDModel.Adherant">
+        <MappingFragment StoreEntitySet="Adherants">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="addresse" ColumnName="addresse" />
+          <ScalarProperty Name="anciennete" ColumnName="anciennete" />
+          <ScalarProperty Name="date_entre" ColumnName="date_entre" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="sexe" ColumnName="sexe" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="Bibliothequaire_Id" ColumnName="Bibliothequaire_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bibliothequaires">
+      <EntityTypeMapping TypeName="BibliothequeBDModel.Bibliothequaire">
+        <MappingFragment StoreEntitySet="Bibliothequaires">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="sexe" ColumnName="sexe" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Directeurs">
+      <EntityTypeMapping TypeName="BibliothequeBDModel.Directeur">
+        <MappingFragment StoreEntitySet="Directeurs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="sexe" ColumnName="sexe" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Livres">
+      <EntityTypeMapping TypeName="BibliothequeBDModel.Livre">
+        <MappingFragment StoreEntitySet="Livres">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+          <ScalarProperty Name="auteur" ColumnName="auteur" />
+          <ScalarProperty Name="categorie" ColumnName="categorie" />
+          <ScalarProperty Name="Rayon_Id" ColumnName="Rayon_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rayons">
+      <EntityTypeMapping TypeName="BibliothequeBDModel.Rayon">
+        <MappingFragment StoreEntitySet="Rayons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="libelee" ColumnName="libelee" />
+          <ScalarProperty Name="capacite" ColumnName="capacite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AdherantLivre" TypeName="BibliothequeBDModel.AdherantLivre" StoreEntitySet="AdherantLivre">
+      <EndProperty Name="Adherants">
+        <ScalarProperty Name="Id" ColumnName="Adherants_Id" />
+      </EndProperty>
+      <EndProperty Name="Livres">
+        <ScalarProperty Name="Id" ColumnName="Livres_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

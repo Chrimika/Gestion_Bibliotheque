@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BibliothequeBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Adherant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="addresse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="anciennete" Type="Int32" Nullable="false" />
+    <Property Name="date_entre" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sexe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="tel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Bibliothequaire_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Bibliothequaire" Relationship="Self.FK_BibliothequairesAdherant" FromRole="Adherants" ToRole="Bibliothequaires" />
+    <NavigationProperty Name="Livres" Relationship="Self.AdherantLivre" FromRole="Adherants" ToRole="Livres" />
+  </EntityType>
+  <EntityType Name="Bibliothequaire">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sexe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="age" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Adherants" Relationship="Self.FK_BibliothequairesAdherant" FromRole="Bibliothequaires" ToRole="Adherants" />
+  </EntityType>
+  <EntityType Name="Directeur">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sexe" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="age" Type="Int32" Nullable="false" />
+    <Property Name="tel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Livre">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="photo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="auteur" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="categorie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Rayon_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Rayon" Relationship="Self.FK_RayonLivre" FromRole="Livres" ToRole="Rayons" />
+    <NavigationProperty Name="Adherants" Relationship="Self.AdherantLivre" FromRole="Livres" ToRole="Adherants" />
+  </EntityType>
+  <EntityType Name="Rayon">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="libelee" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="capacite" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Livres" Relationship="Self.FK_RayonLivre" FromRole="Rayons" ToRole="Livres" />
+  </EntityType>
+  <Association Name="FK_BibliothequairesAdherant">
+    <End Role="Bibliothequaires" Type="Self.Bibliothequaire" Multiplicity="1" />
+    <End Role="Adherants" Type="Self.Adherant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bibliothequaires">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Adherants">
+        <PropertyRef Name="Bibliothequaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RayonLivre">
+    <End Role="Rayons" Type="Self.Rayon" Multiplicity="1" />
+    <End Role="Livres" Type="Self.Livre" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rayons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livres">
+        <PropertyRef Name="Rayon_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AdherantLivre">
+    <End Role="Adherants" Type="Self.Adherant" Multiplicity="*" />
+    <End Role="Livres" Type="Self.Livre" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="BibliothequeBDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Adherants" EntityType="Self.Adherant" />
+    <EntitySet Name="Bibliothequaires" EntityType="Self.Bibliothequaire" />
+    <EntitySet Name="Directeurs" EntityType="Self.Directeur" />
+    <EntitySet Name="Livres" EntityType="Self.Livre" />
+    <EntitySet Name="Rayons" EntityType="Self.Rayon" />
+    <AssociationSet Name="FK_BibliothequairesAdherant" Association="Self.FK_BibliothequairesAdherant">
+      <End Role="Bibliothequaires" EntitySet="Bibliothequaires" />
+      <End Role="Adherants" EntitySet="Adherants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RayonLivre" Association="Self.FK_RayonLivre">
+      <End Role="Rayons" EntitySet="Rayons" />
+      <End Role="Livres" EntitySet="Livres" />
+    </AssociationSet>
+    <AssociationSet Name="AdherantLivre" Association="Self.AdherantLivre">
+      <End Role="Adherants" EntitySet="Adherants" />
+      <End Role="Livres" EntitySet="Livres" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

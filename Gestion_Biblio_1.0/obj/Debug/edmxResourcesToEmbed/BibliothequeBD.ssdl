@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BibliothequeBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'BibliothequeBD.dbo.AdherantLivres' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="AdherantLivres">
+    <Key>
+      <PropertyRef Name="Adherants_id" />
+      <PropertyRef Name="Livres_Id" />
+    </Key>
+    <Property Name="Adherants_id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Livres_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'BibliothequeBD.dbo.Adherants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Adherants">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="addresse" />
+      <PropertyRef Name="CNI_Num" />
+      <PropertyRef Name="Anciennete" />
+      <PropertyRef Name="date_Entree" />
+      <PropertyRef Name="nom" />
+      <PropertyRef Name="sex" />
+      <PropertyRef Name="age" />
+      <PropertyRef Name="tel" />
+      <PropertyRef Name="password" />
+      <PropertyRef Name="Bibliothequaire_id" />
+    </Key>
+    <Property Name="id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="addresse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CNI_Num" Type="int" Nullable="false" />
+    <Property Name="Anciennete" Type="int" Nullable="false" />
+    <Property Name="date_Entree" Type="datetime" Nullable="false" />
+    <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sex" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+    <Property Name="tel" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Bibliothequaire_id" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'BibliothequeBD.dbo.Bibliothequaires' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Bibliothequaires">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="nom" />
+      <PropertyRef Name="sexe" />
+      <PropertyRef Name="age" />
+      <PropertyRef Name="tel" />
+      <PropertyRef Name="password" />
+    </Key>
+    <Property Name="id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sexe" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="age" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="tel" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'BibliothequeBD.dbo.Directeurs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Directeurs">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="password" />
+      <PropertyRef Name="nom" />
+      <PropertyRef Name="sexe" />
+      <PropertyRef Name="age" />
+      <PropertyRef Name="tel" />
+    </Key>
+    <Property Name="id" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sexe" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="false" />
+    <Property Name="tel" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Livres">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="auteur" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="categorie" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rayon_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rayons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="libelee" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="capacite" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_AdherantLivres_Livres">
+    <End Role="Livres" Type="Self.Livres" Multiplicity="1" />
+    <End Role="AdherantLivres" Type="Self.AdherantLivres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Livres">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdherantLivres">
+        <PropertyRef Name="Livres_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RayonsLivres">
+    <End Role="Rayons" Type="Self.Rayons" Multiplicity="1" />
+    <End Role="Livres" Type="Self.Livres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rayons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Livres">
+        <PropertyRef Name="Rayon_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BibliothequeBDModelStoreContainer">
+    <EntitySet Name="Livres" EntityType="Self.Livres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rayons" EntityType="Self.Rayons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdherantLivres" EntityType="Self.AdherantLivres" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [AdherantLivres].[Adherants_id] AS [Adherants_id], 
+    [AdherantLivres].[Livres_Id] AS [Livres_Id]
+    FROM [dbo].[AdherantLivres] AS [AdherantLivres]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Adherants" EntityType="Self.Adherants" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Adherants].[id] AS [id], 
+    [Adherants].[addresse] AS [addresse], 
+    [Adherants].[CNI_Num] AS [CNI_Num], 
+    [Adherants].[Anciennete] AS [Anciennete], 
+    [Adherants].[date_Entree] AS [date_Entree], 
+    [Adherants].[nom] AS [nom], 
+    [Adherants].[sex] AS [sex], 
+    [Adherants].[age] AS [age], 
+    [Adherants].[tel] AS [tel], 
+    [Adherants].[password] AS [password], 
+    [Adherants].[Bibliothequaire_id] AS [Bibliothequaire_id]
+    FROM [dbo].[Adherants] AS [Adherants]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Bibliothequaires" EntityType="Self.Bibliothequaires" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Bibliothequaires].[id] AS [id], 
+    [Bibliothequaires].[nom] AS [nom], 
+    [Bibliothequaires].[sexe] AS [sexe], 
+    [Bibliothequaires].[age] AS [age], 
+    [Bibliothequaires].[tel] AS [tel], 
+    [Bibliothequaires].[password] AS [password]
+    FROM [dbo].[Bibliothequaires] AS [Bibliothequaires]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Directeurs" EntityType="Self.Directeurs" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Directeurs].[id] AS [id], 
+    [Directeurs].[password] AS [password], 
+    [Directeurs].[nom] AS [nom], 
+    [Directeurs].[sexe] AS [sexe], 
+    [Directeurs].[age] AS [age], 
+    [Directeurs].[tel] AS [tel]
+    FROM [dbo].[Directeurs] AS [Directeurs]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_AdherantLivres_Livres" Association="Self.FK_AdherantLivres_Livres">
+      <End Role="Livres" EntitySet="Livres" />
+      <End Role="AdherantLivres" EntitySet="AdherantLivres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RayonsLivres" Association="Self.FK_RayonsLivres">
+      <End Role="Rayons" EntitySet="Rayons" />
+      <End Role="Livres" EntitySet="Livres" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
